@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import doctorsReducer from './doctor';
+import teamsReducer from './teams';
 
 const generalReducer = combineReducers({
-  doctors: doctorsReducer,
+  teamsList: teamsReducer,
 });
 
 export default generalReducer;

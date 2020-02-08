@@ -1,6 +1,6 @@
 import 'bootstrap';
-// import 'bootstrap/dist/css/bootstrap.min';
-// import '../../assets/stylesheets/main.scss';
+import 'bootstrap/dist/css/bootstrap.min';
+import '../../assets/stylesheets/main.scss';
 
 import React from 'react';
 import ReactDOM from 'react-dom';

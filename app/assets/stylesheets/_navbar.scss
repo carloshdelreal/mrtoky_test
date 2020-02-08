@@ -1,0 +1,16 @@
+.navbar{
+  background-color: rgba($color: #f36e6e, $alpha: 0.7);
+  .logout{
+    text-decoration: none;
+    color: white;
+  }
+}
+.navbar-brand{
+  display: flex;
+  &>div{
+    display: inline-block;
+    align-self: center;
+    padding-left: 1rem;
+    color: white;
+  }
+}
