@@ -1,66 +1,72 @@
-import axios from 'axios';
 import { connect } from 'react-redux';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { loadTeams } from '../actions/index';
-import classifier from '../scripts/continentClassify'
 
+import { countriesToDict, teamsToDict } from '../scripts/continentClassify';
+
+// eslint-disable-next-line react/prefer-stateless-function
 class Teams extends React.Component {
-  async componentDidMount() {
-    const { loadTeams } = this.props;
-
-    axios.defaults.headers.common['x-rapidapi-host'] = 'restcountries-v1.p.rapidapi.com';
-    axios.defaults.headers.common['x-rapidapi-key'] = '1033cb5a0bmshe605dbb12c196fcp1dc3f9jsn7633a6f60df8';
-    axios.defaults.headers.common.accepts = 'json';
-    const teams = await axios.get('https://restcountries-v1.p.rapidapi.com/all');
-
-    // axios.defaults.headers.common['x-rapidapi-host'] = 'montanaflynn-fifa-world-cup.p.rapidapi.com';
-    // axios.defaults.headers.common['x-rapidapi-key'] = '1033cb5a0bmshe605dbb12c196fcp1dc3f9jsn7633a6f60df8';
-    // axios.defaults.headers.common.accepts = 'json';
-    // const teams = await axios.get('https://montanaflynn-fifa-world-cup.p.rapidapi.com/teams');
-
-    loadTeams(teams.data);
-  }
-
   render() {
-    const { teamsList } = this.props;
+    const { countriesList, teamsList, gameList } = this.props;
 
-    if (!teamsList) {
+    if (!countriesList || !teamsList || !gameList) {
       return (<div>Loading...</div>);
     }
+    const countriesDict = countriesToDict(countriesList, teamsList);
+    
+    const continents = ['Asia', 'Europe', 'Africa', 'Oceania', 'Americas'];
 
-    const continentCountries = classifier(teamsList);
-    console.log(continentCountries);
+    const teamsDict = teamsToDict(teamsList);
 
+    const participants = {};
+    gameList.forEach((game) => {
+      if (participants[game.team1_id] === undefined) {
+        participants[game.team1_id] = teamsDict[game.team1_id];
+      }
+    });
+
+    let list = Object.values(participants);
+    list = list.sort((a, b) => {
+      if (a.title < b.title) {
+        return -1;
+      }
+      return 1;
+    });
+    console.log(list);
     return (
       <div>
-          <div className="container">
-            <div className="row">
-              { teamsList.map((item) => (
-                <div key={item.numericCode}  className="country col-4 col-sm-4 col-md-3">
-                  <h5>{ `${item.name}` }</h5>
-                  <img src={`https://salnazi.000webhostapp.com/country_api/flags/${item.alpha2Code.toLowerCase()}.svg`} alt={`flag of ${item.name}`} />
-                </div>
-              ))}
+        <div className="container">
+          <div className="row">
+            { list.map((item) => (
+              <div key={item.code} className="country col-4 col-sm-4 col-md-3">
+                <h5>{ `${item.title}` }</h5>
+                <img src={`https://salnazi.000webhostapp.com/country_api/flags/${item.code.toLowerCase().slice(0,2)}.svg`} alt={`flag of ${item.name}`} />
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
       </div>
     );
   }
 }
 
 Teams.propTypes = {
-  loadTeams: PropTypes.instanceOf(Function).isRequired,
-  // teamsList: PropTypes.shape({}).isRequired,
+  gameList: PropTypes.shape({}).isRequired,
+  teamsList: PropTypes.shape({}).isRequired,
+  countriesList: PropTypes.shape([]).isRequired,
 };
 
 // eslint-disable-next-line arrow-parens
 const mapStateToProps = state => ({
   teamsList: state.teamsList,
+  countriesList: state.countriesList,
+  gameList: state.gameList,
 });
 
 const mapDispatchToProps = dispatch => ({
   loadTeams: teams => dispatch(loadTeams(teams)),
+  loadCountries: countries => dispatch(loadCountries(countries)),
+  loadGames: games => dispatch(loadGames(games)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Teams);

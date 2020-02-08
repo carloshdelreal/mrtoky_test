@@ -1,17 +1,13 @@
 import React from 'react';
-import mrTokiLogo from '../images/mrtoki_logo.png';
+import { Link } from 'react-router-dom';
 import Teams from './teams';
-
+import Nav from './nav';
+import Navigator from './navigation';
 
 const Home = () => (
   <div>
-    <nav className="navbar navbar-light">
-      <div className="navbar-brand">
-        <img src={mrTokiLogo} width="55" className="d-inline-block align-top" alt="" />
-        <div>Prueba de Ingreso</div>
-      </div>
-      <a className="logout" rel="nofollow" data-method="delete" href="/users/sign_out">Log Out</a>
-    </nav>
+    <Nav />
+    <Navigator />
     <Teams />
   </div>
 );
