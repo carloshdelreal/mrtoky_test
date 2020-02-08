@@ -2,7 +2,8 @@ import React from 'react';
 
 const Home = () => (
   <div>
-    welcome
+    Hello!
+    <a rel="nofollow" data-method="delete" href="/users/sign_out">Log Out</a>
   </div>
 );
 

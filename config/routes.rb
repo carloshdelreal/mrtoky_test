@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   devise_for :users
-  get '*path', to: 'homepage#index'
   devise_scope :user do
     authenticated :user do
       root 'homepage#index', as: :authenticated_root
@@ -15,4 +14,12 @@ Rails.application.routes.draw do
     get 'forgot_password', to: 'users/passwords#new'
     get 'reset_password', to: 'users/passwords#edit'
   end
+
+  namespace :api do
+    namespace :v1 do
+      resources :user, only: [:index]
+    end
+  end
+
+  get '*path', to: 'homepage#index'
 end
