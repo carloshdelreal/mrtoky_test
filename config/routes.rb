@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
-
+  get '*path', to: 'homepage#index'
   devise_scope :user do
     authenticated :user do
       root 'homepage#index', as: :authenticated_root
