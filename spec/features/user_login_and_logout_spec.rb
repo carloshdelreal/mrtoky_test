@@ -1,6 +1,5 @@
-# frozen_string_literal: true
-
 require 'rails_helper'
+
 RSpec.feature 'User Logs in and logs out' do
   scenario 'Test the log in and the log out', js: true do
     user = FactoryBot.create(:user)
