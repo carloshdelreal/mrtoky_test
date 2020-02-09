@@ -3,6 +3,11 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 
+import 'bootstrap';
+import 'bootstrap/dist/css/bootstrap.min';
+import '../../assets/stylesheets/deviseLogin.scss';
+
+
 require('@rails/ujs').start();
 require('turbolinks').start();
 require('@rails/activestorage').start();

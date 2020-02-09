@@ -1,5 +1,7 @@
+@import './variables';
+
 .navbar{
-  background-color: rgba($color: #f36e6e, $alpha: 0.7);
+  background-color: rgba($color: $color-main, $alpha: 0.7);
   .logout{
     text-decoration: none;
     color: white;
@@ -16,5 +18,5 @@
 }
 
 .navigator{
-  background-color: rgba(#f36e6e, 0.2);
+  background-color: rgba($color-main, 0.2);
 }
