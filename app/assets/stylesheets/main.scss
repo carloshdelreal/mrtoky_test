@@ -3,3 +3,11 @@
 // You can use Sass (SCSS) here: https://sass-lang.com/
 @import 'navbar';
 @import 'country';
+@import 'form';
+
+
+.goalsList{
+  ul{
+    list-style: none;
+  }
+}

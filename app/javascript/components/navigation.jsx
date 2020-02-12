@@ -5,32 +5,32 @@ const Navigator = () => (
   <div className="container navigator">
     <div className="row">
       <div className="col-4">
-        <Link to="/" activeStyle={{ color: 'red' }}>
+        <Link to="/">
           Participantes
         </Link>
       </div>
       <div className="col-4">
-        <Link to="matches" activeStyle={{ color: 'red' }}>
+        <Link to="matches">
           Matches
         </Link>
       </div>
       <div className="col-4">
-        <Link to="goals" activeStyle={{ color: 'red' }}>
+        <Link to="goals">
           Goles
         </Link>
       </div>
       <div className="col-4">
-        <Link to="goleador" activeStyle={{ color: 'red' }}>
+        <Link to="goleador">
           Goleador
         </Link>
       </div>
       <div className="col-4">
-        <Link to="tabla" activeStyle={{ color: 'red' }}>
+        <Link to="tabla">
           Tabla de Posiciones
         </Link>
       </div>
       <div className="col-4">
-        <Link to="resultados" activeStyle={{ color: 'red' }}>
+        <Link to="resultados">
           Partidos y Resultados
         </Link>
       </div>
