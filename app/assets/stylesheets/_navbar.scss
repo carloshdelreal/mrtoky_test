@@ -18,5 +18,17 @@
 }
 
 .navigator{
-  background-color: rgba($color-main, 0.2);
+  background-color: rgba($color-main, 0.4);
+  .row>div{
+    text-align: center;
+    padding: 1rem;
+    a{
+      color: white;
+      text-decoration: none;
+    }
+    &:hover{
+      background-color: rgba($color: $color-main, $alpha: 0.7);
+    }
+  }
+
 }

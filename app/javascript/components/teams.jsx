@@ -64,9 +64,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  loadTeams: teams => dispatch(loadTeams(teams)),
-  loadCountries: countries => dispatch(loadCountries(countries)),
-  loadGames: games => dispatch(loadGames(games)),
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Teams);
