@@ -10,7 +10,7 @@ import Home from './home';
 import Matches from './matches';
 import Goals from './goals';
 import Goleador from './goleador';
-import { teamsToDict } from '../scripts/continentClassify';
+import partTeams from '../data/participantTeams';
 
 
 const csrfToken = document.querySelector('[name=csrf-token]').content;
@@ -20,7 +20,6 @@ axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken;
 class App extends Component {
   async componentDidMount() {
     const { loadCountries, loadTeams, loadGames, loadGoals, loadPeople, loadRounds, loadParticipants, loadPDict } = this.props;
-
     axios.defaults.headers.common['x-rapidapi-host'] = 'restcountries-v1.p.rapidapi.com';
     axios.defaults.headers.common['x-rapidapi-key'] = '1033cb5a0bmshe605dbb12c196fcp1dc3f9jsn7633a6f60df8';
     axios.defaults.headers.common.accepts = 'json';
@@ -41,15 +40,7 @@ class App extends Component {
     loadGoals(goals.data);
     loadPeople(persons.data);
     loadRounds(rounds.data);
-
-    const teamsDict = teamsToDict(teams.data);
-    const participants = {};
-    games.data.forEach((game) => {
-      if (participants[game.team1_id] === undefined) {
-        participants[game.team1_id] = teamsDict[game.team1_id];
-      }
-    });
-    loadParticipants(participants);
+    loadParticipants(partTeams);
 
     const peopleDict = {};
     persons.data.forEach((person) => {

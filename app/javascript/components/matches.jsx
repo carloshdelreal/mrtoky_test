@@ -34,21 +34,46 @@ class Matches extends React.Component {
             <li key={match.id}>
               <div className="container">
                 <div className="row">
-                  <div className="col text-center">
-                    {roundsDict[match.round_id].title}
+                  <div className="col-3 text-center">
+                    <h4>
+                      {roundsDict[match.round_id].title}
+                    </h4>
                   </div>
-                  <div className="col text-center">
-                    {match.play_at.slice(0, 10)}
+                  <div className="col-3 text-center">
+                    <p>
+                      {match.play_at.slice(0, 10)}
+                    </p>
                   </div>
-                  <div className="col text-center">
-                    {participantsList[match.team1_id].title}
-                    -
-                    {participantsList[match.team2_id].title}
+                </div>
+                <div className="row justify-content-center">
+                  <div className="col-5 text-center teams d-flex">
+                    <div className="row">
+                      <div className="col-6">
+                        <img src={`https://salnazi.000webhostapp.com/country_api/flags/${participantsList[match.team1_id].code.toLowerCase().slice(0,2)}.svg`} alt={`flag of ${participantsList[match.team1_id].name}`} />
+                      </div>
+                      <div className="col-6 d-flex">
+                        <h5>
+                          {participantsList[match.team1_id].title}
+                        </h5>
+                      </div>
+                    </div>
                   </div>
-                  <div className="col text-center">
+                  <div className="col text-center teams">
                     {match.score1}
                     -
                     {match.score1}
+                  </div>
+                  <div className="col-5 text-center teams d-flex">
+                    <div className="row">
+                      <div className="col-6 d-flex">
+                        <h5>
+                          {participantsList[match.team2_id].title}
+                        </h5>
+                      </div>
+                      <div className="col-6">
+                        <img src={`https://salnazi.000webhostapp.com/country_api/flags/${participantsList[match.team2_id].code.toLowerCase().slice(0,2)}.svg`} alt={`flag of ${participantsList[match.team2_id].name}`} />
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

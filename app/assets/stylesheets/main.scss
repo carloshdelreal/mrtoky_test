@@ -12,3 +12,21 @@
     list-style: none;
   }
 }
+
+.matches{
+  .teams{
+    align-self: center;
+    max-width: 240px;
+    img{
+      width: 100%;
+    }
+    h5{
+      align-self: center;
+    }
+  }
+  li{
+    margin: 2rem;
+    padding: 1rem;
+    background-color: rgba(lightgray, 0.15);
+  }
+}
