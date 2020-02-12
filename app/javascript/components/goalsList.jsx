@@ -3,38 +3,12 @@ import { connect } from 'react-redux';
 import React from 'react';
 import PropTypes from 'prop-types';
 import selectGoalsByMinute from '../scripts/goalsClassify';
-
-
-const Goal = ({ goal }) => (
-  <div className="row">
-    <div className="col">
-      Minuto:
-      { goal.minute }
-    </div>
-    <div className="col">
-      Autogol:
-      { goal.owngoal }
-    </div>
-    <div className="col">
-      Penalty:
-      {goal.penalty}
-    </div>
-    <div className="col">
-      Equipo:
-      {goal.team_id}
-    </div>
-    <div>
-      Jugador:
-      {goal.person_id}
-    </div>
-  </div>
-);
-
+import ScoredGoal from './scoredGoal';
 
 class GoalsList extends React.Component {
   render() {
-    const { goalsList, queryGoals } = this.props;
-    if (!goalsList || !queryGoals) {
+    const { goalsList, queryGoals, peopleDict } = this.props;
+    if (!goalsList || !queryGoals || !peopleDict) {
       return <div>selecciona un minuto y una expresión para ver los goles correspondientes</div>;
     }
     const list = selectGoalsByMinute(
@@ -50,9 +24,28 @@ class GoalsList extends React.Component {
     return (
       <div className="goalsList">
         <ul>
+          <li>
+            <div className="row">
+              <div className="col">
+                <h5>Minuto</h5>
+              </div>
+              <div className="col">
+                <h5>Autogol</h5>
+              </div>
+              <div className="col">
+                <h5>Penalty</h5>
+              </div>
+              <div className="col">
+                <h5>Equipo</h5>
+              </div>
+              <div className="col">
+                <h5>Jugador</h5>
+              </div>
+            </div>
+          </li>
           { list.map((goal) => (
             <li key={goal.id.toString()}>
-              <Goal goal={goal} />
+              <ScoredGoal goal={goal} person={peopleDict[goal.person_id]} />
             </li>
           ))}
         </ul>
@@ -61,16 +54,10 @@ class GoalsList extends React.Component {
   }
 }
 
-Goal.propTypes = {
-  goal: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    minute: PropTypes.number.isRequired,
-  }).isRequired,
-};
-
 GoalsList.defaultProps = {
   goalsList: [],
   queryGoals: {},
+  peopleDict: {},
 };
 
 GoalsList.propTypes = {
@@ -81,12 +68,14 @@ GoalsList.propTypes = {
     minute: PropTypes.string,
     expression: PropTypes.string,
   }),
+  peopleDict: PropTypes.shape({}),
 };
 
 // eslint-disable-next-line arrow-parens
 const mapStateToProps = state => ({
   goalsList: state.goalsList,
   queryGoals: state.queryGoals,
+  peopleDict: state.peopleDict,
 });
 
 const mapDispatchToProps = dispatch => ({

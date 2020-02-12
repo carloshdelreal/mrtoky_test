@@ -7,32 +7,19 @@ import { countriesToDict, teamsToDict } from '../scripts/continentClassify';
 // eslint-disable-next-line react/prefer-stateless-function
 class Teams extends React.Component {
   render() {
-    const { countriesList, teamsList, gameList } = this.props;
+    const { participantsList } = this.props;
 
-    if (!countriesList || !teamsList || !gameList) {
+    if (!participantsList) {
       return (<div>Loading...</div>);
     }
-    const countriesDict = countriesToDict(countriesList, teamsList);
-    
-    const continents = ['Asia', 'Europe', 'Africa', 'Oceania', 'Americas'];
 
-    const teamsDict = teamsToDict(teamsList);
-
-    const participants = {};
-    gameList.forEach((game) => {
-      if (participants[game.team1_id] === undefined) {
-        participants[game.team1_id] = teamsDict[game.team1_id];
-      }
-    });
-
-    let list = Object.values(participants);
+    let list = Object.values(participantsList);
     list = list.sort((a, b) => {
       if (a.title < b.title) {
         return -1;
       }
       return 1;
     });
-    console.log(list);
     return (
       <div>
         <div className="container">
@@ -50,17 +37,17 @@ class Teams extends React.Component {
   }
 }
 
+Teams.defaultProps = {
+  participantsList: [],
+};
+
 Teams.propTypes = {
-  gameList: PropTypes.shape({}).isRequired,
-  teamsList: PropTypes.shape({}).isRequired,
-  countriesList: PropTypes.shape([]).isRequired,
+  participantsList: PropTypes.shape({}),
 };
 
 // eslint-disable-next-line arrow-parens
 const mapStateToProps = state => ({
-  teamsList: state.teamsList,
-  countriesList: state.countriesList,
-  gameList: state.gameList,
+  participantsList: state.participantsList,
 });
 
 const mapDispatchToProps = dispatch => ({

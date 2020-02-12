@@ -1,6 +1,6 @@
 const classifier = (data) => {
   const dict = {};
-  data.forEach(element => {
+  data.forEach((element) => {
     if (dict[element.region] === undefined) {
       dict[element.region] = [element];
     } else {
@@ -60,4 +60,6 @@ const continentsDict = (teams, countriesDict) => {
   });
 };
 
-export { classifier, countryByCode, countryListByCode, countriesToDict, continentsDict, teamsToDict };
+export {
+  classifier, countryByCode, countryListByCode, countriesToDict, continentsDict, teamsToDict,
+};

@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import Person from './person';
 import goleadoresByTeam from '../scripts/goleadoresClassify';
 import createPeopleDict from '../scripts/peopleDict';
-import PaginacionTabla from './paginaTable';
 
 class GoleadorList extends React.Component {
   render() {

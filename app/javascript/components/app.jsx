@@ -5,11 +5,12 @@ import { connect } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { loadTeams, loadCountries, loadGames, loadGoals, loadPeople } from '../actions/index';
+import { loadTeams, loadCountries, loadGames, loadGoals, loadPeople, loadRounds, loadParticipants, loadPDict } from '../actions/index';
 import Home from './home';
 import Matches from './matches';
 import Goals from './goals';
 import Goleador from './goleador';
+import { teamsToDict } from '../scripts/continentClassify';
 
 
 const csrfToken = document.querySelector('[name=csrf-token]').content;
@@ -18,7 +19,7 @@ axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken;
 // eslint-disable-next-line react/prefer-stateless-function
 class App extends Component {
   async componentDidMount() {
-    const { loadCountries, loadTeams, loadGames, loadGoals, loadPeople } = this.props;
+    const { loadCountries, loadTeams, loadGames, loadGoals, loadPeople, loadRounds, loadParticipants, loadPDict } = this.props;
 
     axios.defaults.headers.common['x-rapidapi-host'] = 'restcountries-v1.p.rapidapi.com';
     axios.defaults.headers.common['x-rapidapi-key'] = '1033cb5a0bmshe605dbb12c196fcp1dc3f9jsn7633a6f60df8';
@@ -32,13 +33,30 @@ class App extends Component {
     const games = await axios.get('https://montanaflynn-fifa-world-cup.p.rapidapi.com/games');
     const goals = await axios.get('https://montanaflynn-fifa-world-cup.p.rapidapi.com/goals');
     const persons = await axios.get('https://montanaflynn-fifa-world-cup.p.rapidapi.com/persons');
-
+    const rounds = await axios.get('https://montanaflynn-fifa-world-cup.p.rapidapi.com/rounds');
 
     loadCountries(countries.data);
     loadTeams(teams.data);
     loadGames(games.data);
     loadGoals(goals.data);
     loadPeople(persons.data);
+    loadRounds(rounds.data);
+
+    const teamsDict = teamsToDict(teams.data);
+    const participants = {};
+    games.data.forEach((game) => {
+      if (participants[game.team1_id] === undefined) {
+        participants[game.team1_id] = teamsDict[game.team1_id];
+      }
+    });
+    loadParticipants(participants);
+
+    const peopleDict = {};
+    persons.data.forEach((person) => {
+      peopleDict[person.id] = person;
+    });
+
+    loadPDict(peopleDict);
   }
 
   render() {
@@ -63,6 +81,9 @@ App.propTypes = {
   loadCountries: PropTypes.instanceOf(Function).isRequired,
   loadGoals: PropTypes.instanceOf(Function).isRequired,
   loadPeople: PropTypes.instanceOf(Function).isRequired,
+  loadRounds: PropTypes.instanceOf(Function).isRequired,
+  loadParticipants: PropTypes.instanceOf(Function).isRequired,
+  loadPDict: PropTypes.instanceOf(Function).isRequired,
 };
 
 // eslint-disable-next-line arrow-parens
@@ -75,6 +96,9 @@ const mapDispatchToProps = dispatch => ({
   loadGames: games => dispatch(loadGames(games)),
   loadGoals: goals => dispatch(loadGoals(goals)),
   loadPeople: people => dispatch(loadPeople(people)),
+  loadRounds: rounds => dispatch(loadRounds(rounds)),
+  loadParticipants: participants => dispatch(loadParticipants(participants)),
+  loadPDict: people => dispatch(loadPDict(people)),
 });
 
 
