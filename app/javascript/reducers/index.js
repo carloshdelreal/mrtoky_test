@@ -4,6 +4,7 @@ import countriesReducer from './countries';
 import gamesReducer from './games';
 import goalsReducer from './goals';
 import queryGoalsReducer from './queryGoals';
+import peopleReducer from './people';
 
 const generalReducer = combineReducers({
   teamsList: teamsReducer,
@@ -11,6 +12,7 @@ const generalReducer = combineReducers({
   gameList: gamesReducer,
   goalsList: goalsReducer,
   queryGoals: queryGoalsReducer,
+  peopleList: peopleReducer,
 });
 
 export default generalReducer;

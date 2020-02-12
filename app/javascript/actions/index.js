@@ -3,6 +3,7 @@ const LOAD_COUNTRIES = 'LOAD_COUNTRIES';
 const LOAD_GAMES = 'LOAD_GAMES';
 const LOAD_GOALS = 'LOAD_GOALS';
 const QUERY_GOALS = 'QUERY_GOALS';
+const LOAD_PEOPLE = 'LOAD_PEOPLE';
 
 const loadTeams = teams => ({
   type: LOAD_TEAMS,
@@ -29,10 +30,17 @@ const queryGoals = goals => ({
   payload: goals,
 });
 
+const loadPeople = people => ({
+  type: LOAD_PEOPLE,
+  payload: people,
+});
+
+
 export {
   loadTeams,
   loadCountries,
   loadGames,
   loadGoals,
   queryGoals,
+  loadPeople,
 };
