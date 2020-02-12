@@ -27,13 +27,13 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "jest --watch",
     "eject": "react-scripts eject",
+    "test": "react-scripts test --env=jsdom",
     "lint": "eslint ./app/javascript --fix"
   },
   "jest": {
     "roots": [
-      "test/javascript"
+      "spec/javascript"
     ],
     "moduleDirectories": [
       "node_modules",
