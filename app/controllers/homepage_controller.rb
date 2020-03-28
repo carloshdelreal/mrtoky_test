@@ -1,5 +1,5 @@
 class HomepageController < ApplicationController
   before_action :authenticate_user!
-  def index
-  end
+  layout 'react'
+  def index; end
 end

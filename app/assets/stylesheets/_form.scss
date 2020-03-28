@@ -1,0 +1,45 @@
+@import './variables';
+
+.formContainer{
+  display: flex;
+}
+
+.goalsForm {
+  text-align: center;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  margin: 1rem auto;
+  width: 80%;  
+  &__title {
+    text-align: left;
+    margin-bottom: 1rem;
+    font-family: $font-montserrat;
+    font-size: 1.5rem;
+    color: $color-gray-category;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  &__input {
+    flex-grow: 4;
+    margin-right: 2rem;
+    font-size: 16px;
+    border-radius: 2px;
+    padding: .5rem;
+    border: 1px solid $color-gray-light;
+    color: $color-gray-category;
+    font-family: $font-montserrat;
+    outline: none;
+  }
+  &__selection {
+    flex-grow: 1;
+    margin-right: 2rem;
+    height: 45px;
+    padding-left: 1rem;
+    
+  }
+  &__submit {
+    flex-grow: 1;
+    border: 2px solid $color-gray-light;
+  }
+
+}
